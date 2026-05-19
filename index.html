@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello World Elegan & Klasik</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="stage" role="main">
+      <section class="card" aria-label="Hello World">
+        <header class="card__header">
+          <div class="crest" aria-hidden="true"></div>
+          <div class="meta">
+            <p class="meta__kicker">Klasik · Elegan</p>
+            <h1 class="meta__title">Hello World</h1>
+          </div>
+        </header>
+
+        <p class="quote">
+          “Sederhana itu indah. Letakkan perhatian pada detail kecil.”
+        </p>
+
+        <div class="actions">
+          <button id="btnTerlihat" class="btn" type="button">
+            Pecet ini maka pesan muncul
+          </button>
+        </div>
+
+        <div id="message" class="message" aria-live="polite" role="status">
+          <span class="message__dot" aria-hidden="true"></span>
+          <span class="message__text">Siap menampilkan kejutan…</span>
+        </div>
+
+        <footer class="card__footer">
+          <span class="sig"
+            >&copy; <span id="year"></span> · HTML + CSS + JavaScript</span
+          >
+        </footer>
+      </section>
+
+      <div class="bg" aria-hidden="true">
+        <div class="bg__grain"></div>
+        <div class="bg__rings"></div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
