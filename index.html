@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0d25">
+<title>Toples Bintang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
+<canvas id="sky"></canvas>
+<canvas id="fx"></canvas>
+
+<div id="app">
+  <div class="bar">
+    <button class="pill" id="b-snd" type="button" aria-pressed="false">Suara: nyala</button>
+    <!-- tombol di kanan hanya muncul kalau halaman dibuka dengan ?edit=1 -->
+    <div class="bar-r">
+      <button class="pill" id="b-share" type="button">Bagikan</button>
+      <button class="pill" id="b-edit" type="button" hidden>Ubah isi</button>
+      <button class="pill" id="b-dl" type="button" hidden>Unduh kado.js</button>
+    </div>
+  </div>
+
+  <!-- 1. kado -->
+  <section class="scene on" id="s-intro">
+    <div class="gift" id="gift">
+      <svg class="pop" viewBox="0 0 100 100"><use href="#st-pink"/></svg>
+      <div class="lid"></div><div class="box"></div>
+    </div>
+    <h1>Ada kado<br>untukmu</h1>
+    <p class="sub" id="t-intro"></p>
+    <button class="btn" id="b-open" type="button">Buka kado</button>
+  </section>
+
+  <!-- 2. toples -->
+  <section class="scene" id="s-jar">
+    <div class="lights" id="lights"></div>
+    <div class="moon"></div>
+    <div class="counter">
+      <div class="dots" id="dots"></div>
+      <p class="hint" id="t-count">Ketuk bintang yang bersinar</p>
+    </div>
+    <div class="jar">
+      <div class="cork"></div><div class="ribbon"></div><div class="neck"></div>
+      <div class="glass"><div class="fill" id="fill"></div></div>
+    </div>
+  </section>
+
+  <!-- 3. rasi -->
+  <section class="scene" id="s-const">
+    <svg class="constel" id="constel" viewBox="0 0 300 340" role="img" aria-label="Rasi bintang berbentuk hati dengan inisial"></svg>
+    <button class="btn after" id="b-const" type="button">Lanjut</button>
+  </section>
+
+  <!-- 4. judul -->
+  <section class="scene" id="s-title">
+    <p class="hint">Tujuh bintang sudah terbuka</p>
+    <h1 id="t-to"></h1>
+    <p class="sub" id="t-from"></p>
+    <p class="closing" id="t-close" hidden></p>
+    <button class="btn" id="b-sheet" type="button">Lihat lembar kenangan</button>
+  </section>
+
+  <!-- 5. lembar kenangan -->
+  <section class="scene" id="s-sheet">
+    <p class="status" id="t-status">Lembar kenangan</p>
+    <div class="paper" id="paper"></div>
+    <div class="tray" id="tray"></div>
+    <div class="row">
+      <button class="btn ghost" id="b-all" type="button">Tempel semua</button>
+      <button class="btn" id="b-save" type="button">Simpan gambar</button>
+    </div>
+    <div class="row" id="gal-row">
+      <button class="btn ghost" id="b-gal" type="button">Lihat semua foto kenangan</button>
+    </div>
+    <div class="row tight">
+      <button class="link" id="b-again" type="button">Ulangi dari awal</button>
+    </div>
+  </section>
+
+  <!-- galeri foto kenangan -->
+  <section class="scene" id="s-gallery">
+    <h1>Galeri<br>kenangan</h1>
+    <p class="status" id="gal-status"></p>
+    <div class="gal" id="gal" tabindex="0" role="region" aria-label="Galeri foto, geser ke samping"></div>
+    <div class="gal-nav">
+      <button class="pill round" id="gal-prev" type="button" aria-label="Foto sebelumnya">&#8249;</button>
+      <div class="dots" id="gal-dots"></div>
+      <button class="pill round" id="gal-next" type="button" aria-label="Foto berikutnya">&#8250;</button>
+    </div>
+    <div class="row">
+      <button class="btn ghost" id="gal-back" type="button">Kembali</button>
+    </div>
+  </section>
+
+  <!-- 6. bagikan: QR code dan tautan -->
+  <section class="scene" id="s-share">
+    <h1>Bagikan<br>kado ini</h1>
+    <p class="sub">Arahkan kamera HP ke kode ini untuk membuka kadonya.</p>
+    <div class="qr-card">
+      <svg class="qr-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#st-butter"/></svg>
+      <div class="qr-box" id="qr"></div>
+      <p class="qr-cap" id="qr-cap">Untuk Nara</p>
+    </div>
+    <div class="url-box">
+      <input type="text" id="sh-url" readonly aria-label="Tautan kado">
+    </div>
+    <p class="hint note" id="sh-note" hidden></p>
+    <div class="row">
+      <button class="btn ghost" id="sh-back" type="button">Kembali</button>
+      <button class="btn" id="sh-copy" type="button">Salin tautan</button>
+    </div>
+  </section>
+
+  <!-- kartu pesan -->
+  <div class="modal" id="card" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="c-kick">
+      <svg class="bigstar" id="c-star" viewBox="0 0 100 100"></svg>
+      <p class="kicker" id="c-kick"></p>
+      <p class="msg" id="c-msg"></p>
+      <button class="btn" id="c-next" type="button">Simpan di toples</button>
+    </div>
+  </div>
+
+  <!-- editor (hanya mode ?edit=1) -->
+  <div class="modal drawer" id="editor" hidden>
+    <form class="sheet" id="form" role="dialog" aria-modal="true" aria-labelledby="e-h">
+      <h2 id="e-h">Isi kadomu</h2>
+      <p class="sub">Isi nama, tujuh pesan, dan foto. Setelah pas, klik "Unduh kado.js" di atas, lalu timpa file kado.js di folder ini. Cara lain: edit kado.js langsung dengan Notepad.</p>
+      <div class="two">
+        <div class="fld"><label for="f-to">Untuk</label><input type="text" id="f-to" maxlength="24" required placeholder="Nama penerima"></div>
+        <div class="fld"><label for="f-from">Dari</label><input type="text" id="f-from" maxlength="24" required placeholder="Namamu"></div>
+      </div>
+      <div class="two">
+        <div class="fld"><label for="f-ini">Inisial rasi</label><input type="text" id="f-ini" maxlength="9" placeholder="A &amp; N"></div>
+        <div class="fld"><label for="f-date">Tanggal</label><input type="text" id="f-date" maxlength="24"></div>
+      </div>
+      <div id="f-msgs"></div>
+      <div class="fld">
+        <label for="f-close">Kalimat penutup (opsional)</label>
+        <textarea id="f-close" maxlength="140" placeholder="Muncul di halaman judul"></textarea>
+      </div>
+      <fieldset class="fld flat">
+        <legend>Foto kenangan (opsional, sampai 12)</legend>
+        <div class="ph-list" id="f-photos"></div>
+      </fieldset>
+      <div class="row wide">
+        <button class="btn ghost" type="button" id="e-cancel">Batal</button>
+        <button class="btn" type="submit">Simpan dan pratinjau</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- hasil gambar -->
+  <div class="modal exp" id="exp" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Gambar lembar kenangan">
+      <h2>Lembar kenangan</h2>
+      <img id="exp-img" alt="Lembar kenangan siap disimpan">
+      <p>Tekan lama gambar lalu pilih Simpan. Di komputer, klik kanan gambar dan pilih Simpan gambar sebagai.</p>
+      <p class="row tight wide"><button class="btn" id="exp-close" type="button">Selesai</button></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="kado.js"></script>
+<script src="js/qr.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
